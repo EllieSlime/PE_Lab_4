@@ -1,5 +1,5 @@
 from sqlalchemy.orm import Session
-from app.db.models import Group
+from app.db.models import Group, Student
 
 
 class GroupRepository:
@@ -19,3 +19,7 @@ class GroupRepository:
 
     def list(self, db: Session):
         return db.query(Group).all()
+
+    def students(self, db: Session, group_id: int):
+        group = self.get(db, group_id)
+        return group.students if group else []

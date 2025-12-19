@@ -19,3 +19,15 @@ class StudentRepository:
 
     def list(self, db: Session):
         return db.query(Student).all()
+
+    def add_to_group(self, db: Session, student: Student, group_id: int):
+        student.group_id = group_id
+        db.commit()
+        db.refresh(student)
+        return student
+
+    def remove_from_group(self, db: Session, student: Student):
+        student.group_id = None
+        db.commit()
+        db.refresh(student)
+        return student
